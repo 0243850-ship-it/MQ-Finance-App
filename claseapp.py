@@ -254,7 +254,7 @@ def sharpe_ratio(returns, rf_daily=0.0):
         return np.nan
     return (r_excess.mean() * 252) / (sigma * np.sqrt(252))
 
-# =================== 1) INFO DE LA EMPRESA + GEMINI ===================
+# =================== 1) INFO DE LA EMPRESA ===================
 try:
     info = get_info_safe(stonk)
     nombre = info.get("longName", info.get("shortName", stonk.upper()))
@@ -307,19 +307,17 @@ try:
     with st.expander("🧾 Descripción de la empresa (Yahoo Finance)"):
         st.write(descripcion)
 
-    # =========================================================
-    #     🔥 AQUÍ INCLUIMOS DIRECTAMENTE TU API KEY
-    # =========================================================
-st.markdown(
-    "<span class='badge'>📌 Nota: la descripción anterior viene directamente de Yahoo Finance (sin traducción automática).</span>",
-    unsafe_allow_html=True
-)
+    st.markdown(
+        "<span class='badge'>📌 Nota: la descripción anterior viene directamente de Yahoo Finance (sin traducción automática).</span>",
+        unsafe_allow_html=True,
+    )
 
 except Exception as e:
     st.error("No se pudo obtener información de la empresa.")
     st.exception(e)
 
 st.markdown("---")
+
 
 # =================== 2) DESCARGA DE DATOS BASE ===================
 asset_df = get_history(stonk, "max", "1d")
