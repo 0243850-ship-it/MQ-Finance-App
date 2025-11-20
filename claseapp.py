@@ -323,13 +323,15 @@ try:
     Descripción: {descripcion}
     """
 
-    try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-2.0-flash")
-        response = model.generate_content(prompt)
-        st.success(response.text)
-    except Exception as e:
-        st.warning("No se pudo obtener la traducción/resumen de Gemini en este momento.")
+try:
+    genai.configure(api_key=api_key)
+    # usa un modelo estable
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    response = model.generate_content(prompt)
+    st.success(response.text)
+except Exception as e:
+    st.warning("No se pudo obtener la traducción/resumen de Gemini en este momento.")
+    st.exception(e)  # 👈 esto muestra el error detallado
 
 except Exception as e:
     st.error("No se pudo obtener información de la empresa.")
