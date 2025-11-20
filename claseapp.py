@@ -4,7 +4,6 @@ import yfinance as yf
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
-import google.generativeai as genai
 
 # =================== CONFIG DE PÁGINA ===================
 st.set_page_config(
@@ -311,27 +310,10 @@ try:
     # =========================================================
     #     🔥 AQUÍ INCLUIMOS DIRECTAMENTE TU API KEY
     # =========================================================
-    st.markdown("<span class='badge'>✨ Gemini: resumen en español financiero (500 caracteres)</span>", unsafe_allow_html=True)
-
-    api_key = "AIzaSyBEAqm9GgJ_pH1Ch1pUM83JXdNPJr9u5xw"   # ←——— Pega aquí tu API key real
-
-    prompt = f"""
-    Te voy a dar la descripción en inglés de una empresa que cotiza en la bolsa.
-    Necesito que traduzcas y resumas la descripción a un español financiero formal.
-    Quiero que la traducción sea lo más apegada posible al original
-    y que me entregues un texto de exactamente 500 caracteres.
-    Descripción: {descripcion}
-    """
-
-try:
-    genai.configure(api_key=api_key)
-    # usa un modelo estable
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate_content(prompt)
-    st.success(response.text)
-except Exception as e:
-    st.warning("No se pudo obtener la traducción/resumen de Gemini en este momento.")
-    st.exception(e)  # 👈 esto muestra el error detallado
+st.markdown(
+    "<span class='badge'>📌 Nota: la descripción anterior viene directamente de Yahoo Finance (sin traducción automática).</span>",
+    unsafe_allow_html=True
+)
 
 except Exception as e:
     st.error("No se pudo obtener información de la empresa.")
